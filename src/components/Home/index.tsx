@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react'
-
 import { useSelector, useDispatch } from 'react-redux'
-
-import {Head, Logo, Title, Bar, Content} from './styles'
-import {Select, InputNumber, DatePicker, Button, List} from 'antd'
-import {PlusOutlined, CloseOutlined} from '@ant-design/icons'
-import Highcharts from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
-import 'antd/dist/antd.css';
 
 import { ApplicationState } from '../../store'
 import { getInvestimentosRequest, addInvestimentoRequest, removeInvestimentoRequest} from '../../store/modules/investimento/actions'
 
+import {Head, Logo, Title, Bar, Content} from './styles'
+import {Select, InputNumber, DatePicker, Button} from 'antd'
+import {PlusOutlined} from '@ant-design/icons'
 
+import Lists from '../Lists'
+import Graph from '../Graph'
+import 'antd/dist/antd.css';
 import logo from "../../images/logo.jpeg"
 
 const {Option} = Select;
@@ -93,47 +91,10 @@ const Home: React.FC = () => {
                 <Button onClick={handleAdd} shape="circle" icon={<PlusOutlined/>}/>
             </Bar>
             <Bar>
-                <div>
-                    <h4>Renda Fixa:</h4>
-                    <List
-                        dataSource={investimentos.filter((investimento: InvestimentoData) => investimento.opcao === "fixa")}
-                        renderItem={item =>(
-                            <List.Item>
-                                {item.data} R${item.valor} <Button size="small" onClick={()=>handleDelete(item._id)} icon={<CloseOutlined/>} danger/>
-                            </List.Item>
-                        )}
-                    ></List>
-                </div>
-                <div>
-                    <h4>Renda Variável:</h4>
-                    <List
-                        dataSource={investimentos.filter((investimento: InvestimentoData) => investimento.opcao === "variavel")}
-                        renderItem={item =>(
-                            <List.Item>
-                                {item.data} R${item.valor} <Button size="small" onClick={()=>handleDelete(item._id)} icon={<CloseOutlined/>} danger/>
-                            </List.Item>
-                        )}
-                    ></List>
-                </div>
+                <Lists investimentos={investimentos} handleDelete={handleDelete} />
             </Bar>
             <div>
-            <HighchartsReact 
-                highcharts={Highcharts}
-                options={{
-                    chart: {
-                        type: "pie"
-                    },
-                    series: [{
-                        data:[{
-                                name: "Fixa",
-                                y: perFixa
-                            },
-                            {
-                                name: "Variável",
-                                y: perVariavel
-                        }]
-                    }]
-                }}/>
+                <Graph perFixa = {perFixa} perVariavel={perVariavel}/>
             </div>
         </Content>
     )
