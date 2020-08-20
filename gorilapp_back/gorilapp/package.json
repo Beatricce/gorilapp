@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start": "sls offline --httpPort=4040"
+  },
+  "devDependencies": {
+    "serverless-offline": "^6.5.0"
+  },
+  "dependencies": {
+    "mongoose": "^5.10.0"
+  }
+}
