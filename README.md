@@ -1,3 +1,19 @@
+# General Instructions & Overview
+This app was created to show a dashboard that allows you to input some data about a new investment then the app returns a graph showing the percents of said data.
+
+To run the app locally, clone it then read the instructions in 'React Instructions'. The remote version is in https://master.d1n3yyhx60ys1r.amplifyapp.com (Don't overrun it pls, I'm paying for this ;-;)
+
+There's a login page, the super secret user is {username: "admin, pass: "asenhamaisfacildomundo"}
+
+The gorilapp_back folder has the code for the creation of an api that allows me to create, get and remove an investment. For running it locally, change the config.js file to your localhost + the docker port for MongoDB (usually it is 27017). Run it with 'yarn start' too.
+
+Happy hacking!
+
+![Screenshot] (screenshot.png)
+
+
+# React Intructions
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
