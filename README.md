@@ -9,7 +9,7 @@ The gorilapp_back folder has the code for the creation of an api that allows me 
 
 Happy hacking!
 
-![Screenshot] (screenshot.png)
+![Screenshot](screenshot.png)
 
 
 # React Intructions
