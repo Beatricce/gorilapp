@@ -10,8 +10,8 @@ import {PlusOutlined} from '@ant-design/icons'
 
 import Lists from '../Lists'
 import Graph from '../Graph'
-import 'antd/dist/antd.css';
 import logo from "../../images/logo.jpeg"
+import 'antd/dist/antd.css';
 
 const {Option} = Select;
 
@@ -27,7 +27,6 @@ const Home: React.FC = () => {
     const [valor, setValor] = useState(0)
     const [data, setData] = useState("01-01-2019")
     const [investimentoList, setInvestimentoList] = useState<InvestimentoData[]>([])
-    const [investimento, setInvestimento] = useState("")
 
     useEffect(() => {
         const investimentos = localStorage.getItem("investimentoList")
@@ -41,14 +40,23 @@ const Home: React.FC = () => {
     }, [investimentoList])
 
     const dispatch = useDispatch()
-    const investimentos = useSelector((state: ApplicationState) => state.investimento.investimentos)
-    const perFixa = investimentos.length > 0? investimentos.filter((investimento: InvestimentoData) => investimento.opcao === "fixa").length/investimentos.length: 0
-    const perVariavel = 1-perFixa
 
     useEffect(() => {
-        console.log("getTodosRequest")
         dispatch(getInvestimentosRequest())
       }, [])
+      
+    const investimentos = useSelector((state: ApplicationState) => state.investimento.investimentos)
+    
+    let ct_total = 0, ct_fixa = 0, perFixa = 0, perVariavel = 1
+    investimentos.map(investimento => {
+        if(investimento.opcao === "fixa")
+            ct_fixa+=investimento.valor
+        ct_total+=investimento.valor
+    })
+    if(investimentos.length>0){
+        perFixa = (ct_fixa/ct_total)
+        perVariavel = (1 - ct_fixa/ct_total)
+    }
 
     function handleSelect(val: any){
         setOpcao(val)
@@ -67,8 +75,7 @@ const Home: React.FC = () => {
     }
 
     return (
-        
-        <Content>
+        <Content>    
             <Head>
                 <Logo src = {logo} />
             </Head>

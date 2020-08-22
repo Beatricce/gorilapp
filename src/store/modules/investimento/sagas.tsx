@@ -30,7 +30,7 @@ function* addInvestimento({payload}: AnyAction){
 
 function* removeInvestimento({payload}: AnyAction){
     const investimentos = yield select((state: ApplicationState) => state.investimento.investimentos )
-    const updatedInvestimentos = investimentos.filter((investimento: InvestimentoData) => investimento._id!=payload._id)
+    const updatedInvestimentos = investimentos.filter((investimento: InvestimentoData) => investimento._id!==payload._id)
     yield call(api.delete, payload._id)
     console.log(updatedInvestimentos)
     yield put(getInvestimentosSuccess(updatedInvestimentos))
